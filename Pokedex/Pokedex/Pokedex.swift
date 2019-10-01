@@ -8,19 +8,34 @@
 
 import Foundation
 
-struct TopLevelDictionary {
+struct Pokemon: Decodable {
+    
+    private enum CodingKeys: String, CodingKey {
+        case abilities
+        case name
+        case id
+        case spriteDictionary = "sprites"
+    }
+    
     let name: String
     let id: Int
-    let sprites: SpriteDictionary
+    let spriteDictionary: SpriteDictionary
     let abilities: [AbilityDictionary]
-}
-
-struct SpriteDictionary {
-    let image: String
-}
-
-struct AbilityDictionary {
-    let name: String
     
+}
+
+struct SpriteDictionary: Decodable {
+    private enum CodingKeys: String, CodingKey {
+        case image = "front_shiny"
+    }
+    let image: URL
+}
+
+struct AbilityDictionary: Decodable {
+    let ability: Ability
+    
+    struct Ability: Decodable {
+        let name: String
+    }
 }
 
